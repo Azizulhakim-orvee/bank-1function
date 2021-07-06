@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Some bank</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="login">
+      <h1 class="text-center">Welcome to some bank</h1>
+      <div class="form">
+        <h3>login(fake)</h3>
+        <br />
+        <input
+          type="text"
+          placeholder="just press enter"
+          class="form-control"
+        />
+        <br />
+        <input type=password" placeholder="just press enter"
+        class="form-control">
+        <br />
+        <button id="enter" class="btn btn-success">Enter</button>
+      </div>
+    </div>
+
+    <div id="transaction-area">
+      <div class="row">
+        <div class="col">
+          <div class="deposit status">
+            <strong> Deposit</strong>
+            <p>$<span class="figures" id="pDeposit">00</span></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="withdraw status">
+            <strong> Withdraw</strong>
+
+            <p>$<span class="figures" id="pWithdraw">00</span></p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="balance status">
+            <strong> Balance</strong>
+            <p>$<span class="figures" id="pBalance">100</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col submit-area">
+          <h3>Deposit</h3>
+          <input type="text" id="depositValue" />
+          <br />
+          <br />
+          <button class="btn btn-outline-secondary" id="depositbtn">
+            Deposit
+          </button>
+        </div>
+        <div class="col submit-area">
+          <h3>Withdraw</h3>
+          <input type="text" name="" id="withValue" />
+          <br />
+          <br />
+          <button class="btn btn-outline-secondary" id="withdrawbtn">
+            Withdraw
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //login button
+      const enter = document.getElementById("enter");
+      enter.addEventListener("click", function () {
+        const login = document.getElementById("login");
+        login.style.display = "none";
+        document.getElementById("transaction-area").style.display = "block";
+      });
+      //deposit button
+      document
+        .getElementById("depositbtn")
+        .addEventListener("click", function () {
+          masterAll("depositValue", "pDeposit");
+        });
+      //withdraw button
+      document
+        .getElementById("withdrawbtn")
+        .addEventListener("click", function () {
+          masterAll("withValue", "pWithdraw");
+        });
+
+      //masterAll function
+      function masterAll(iValue, pValue) {
+        const inputValue = parseFloat(document.getElementById(iValue).value);
+        const preValue = parseFloat(document.getElementById(pValue).innerText);
+        const tValue = inputValue + preValue;
+
+        document.getElementById(pValue).innerText = tValue;
+        document.getElementById(iValue).value = "";
+
+        const pBalance = parseFloat(
+          document.getElementById("pBalance").innerText
+        );
+
+        if (pValue == "pWithdraw") {
+          const nBalance = pBalance - inputValue;
+          document.getElementById("pBalance").innerText = nBalance;
+        } else {
+          const nBalance = pBalance + inputValue;
+          document.getElementById("pBalance").innerText = nBalance;
+        }
+      }
+    </script>
+  </body>
+</html>
